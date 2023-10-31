@@ -6,18 +6,25 @@ output:
     toc_float: true
 ---
 
-# Welcome to my awesome website
+# Problem 1
+
+### Welcome to my awesome website
 
 Hello, this is my landing page for my awesome website.
 
 My name is Yueyi Xu. I am a first-year graduate student in the Biostatistics M.S. program. In this website, you can find my academic and professional experience.
 
 
-# My academic and professional experience
+### My academic and professional experience
 
 Here is the word document of my academic and professional experience: [resume](CV_Yueyi Xu.pdf)
 
 
-# My personal information
+### My personal information
 
 Please check out my email, LinkedIn, and github account on the upper right corner.
+
+
+# Problem 2
+
+Here is the link to 3 distinct plots on NYC Restaurant Inspections: [flexdashboard](flexdashboard.html)

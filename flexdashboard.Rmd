@@ -7,25 +7,56 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+library(p8105.datasets)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+data("rest_inspec")
+rest_inspec_df = 
+  rest_inspec |> 
+  select(
+    boro, camis, cuisine_description, dba, score, street, zipcode, grade) |>
+  filter(
+    grade %in% c("A", "B", "C"),
+    cuisine_description == "American",
+    boro == "MANHATTAN"
+    )
 ```
 
-## Including Plots
+This is a dashboard
 
-You can also embed plots, for example:
+Column {data-width=650}
+-----------------------------------------------------------------------
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+### Chart A: box plot
+
+```{r}
+rest_inspec_df |>
+  mutate(street = fct_reorder(street, score)) |>
+  plot_ly(y = ~score, color = ~street, type = "box", colors = "viridis")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B: scatter plot
+
+```{r}
+rest_inspec_df |>
+  mutate(text_label = str_c("Name: ", dba, "\nGrade", grade)) |> 
+  plot_ly(x = ~street, y = ~score, type = "scatter", mode = "markers", color = ~grade,   text = ~text_label, alpha = 0.5)
+```
+
+### Chart C: bar plot
+
+```{r}
+rest_inspec_df |>
+  count(street) |>
+  mutate(street = fct_reorder(street, n)) |>
+  plot_ly(x = ~street, y = ~n, color = ~street, type = "bar", colors = "viridis")
+```
+
