@@ -15,15 +15,15 @@ library(p8105.datasets)
 
 
 ```{r}
-data("rest_inspec")
-rest_inspec_df = 
+data("rest_inspec") #import the dataset
+rest_inspec_df = #create a dataframe
   rest_inspec |> 
-  select(
+  select( #select particular/important columns for plotting
     boro, camis, cuisine_description, dba, score, street, zipcode, grade) |>
   filter(
-    grade %in% c("A", "B", "C"),
-    cuisine_description == "American",
-    boro == "MANHATTAN"
+    grade %in% c("A", "B", "C"), #filter only grades in A, B, and C
+    cuisine_description == "American", #filter only American restaurants
+    boro == "MANHATTAN" #filter only the Manhattan boro
     )
 ```
 
